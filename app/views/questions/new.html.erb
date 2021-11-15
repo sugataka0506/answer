@@ -1,0 +1,23 @@
+<div class="main posts-new">
+  <div class="container">
+    <h1 class="form-heading">投稿する</h1>
+    <%= form_tag ("/questions") do %>
+        <div class="form">
+          <div class="form-body">
+            質問
+            <textarea name="question"></textarea>
+            <br>
+            選択肢
+            <textarea name="option1"></textarea>
+            <br>
+            選択肢
+            <textarea name="option2"></textarea>
+            <br>
+            選択肢
+            <textarea name="option3"></textarea>
+            <input type="submit" value="投稿">
+          </div>
+        </div>
+    <% end %>
+  </div>
+</div>
