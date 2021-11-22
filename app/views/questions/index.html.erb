@@ -22,9 +22,16 @@
       <% @questions.each do |question| %>
         <div>
           <p><%= question.question %></p>
-          <% question.options.each do |option| %>
-            <%= link_to question_user_options_path(question.id, { option_id:  option.id }), method: :post do %>
-              <button><%= option.option %></button>
+          
+          <% if @answered_question_ids.include?(question.id) %>
+            <% question.options.each do |option| %>
+                <div><%= option.option %>: <%= UserOption.where(option_id: option.id).count %></div>
+            <% end %>
+          <% else %>
+            <% question.options.each do |option| %>
+              <%= link_to question_user_options_path(question.id, { option_id:  option.id }), method: :post do %>
+                <button><%= option.option %></button>
+              <% end %>
             <% end %>
           <% end %>
         </div>
