@@ -15,14 +15,15 @@
     <%= current_user.email %> 
     <%= link_to "ログアウト", destroy_user_session_path, method: :delete %> <!-- ログアウトをする -->
     <%= link_to("作成","/questions/new", class: 'btn btn-primary') %>
-    <%= link_to("アンケート一覧","/questions/", class: 'btn btn-primary') %>
+    <%= link_to("アンケート一覧","/questions", class: 'btn btn-primary') %>
     <% @questions.each do |question| %>
       <div>
         <p><%= question.question %></p>
-        
+        <% chart_array = [] %>
         <% question.options.each do |option| %>
-          <div><%= option.option %></div>
+          <% chart_array << [option.option, UserOption.where(option_id: option.id).count] %>
         <% end %>
+        <%= pie_chart chart_array, width: '300px', height: '200px',colors: ['#b00', '#0b0', '#00b']%>
       </div>
       <%= link_to 'delete', my_question_path(question), method: 'delete' %>
       <hr>
