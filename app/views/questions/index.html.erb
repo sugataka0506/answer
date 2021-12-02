@@ -24,9 +24,11 @@
           <p><%= question.question %></p>
           
           <% if @answered_question_ids.include?(question.id) %>
+            <% chart_array = [] %>
             <% question.options.each do |option| %>
-                <div><%= option.option %>: <%= UserOption.where(option_id: option.id).count %></div>
+                <% chart_array << [option.option, UserOption.where(option_id: option.id).count] %>
             <% end %>
+            <%= column_chart chart_array, width: '300px', height: '200px' %>
           <% else %>
             <% question.options.each do |option| %>
               <%= link_to question_user_options_path(question.id, { option_id:  option.id }), method: :post do %>
