@@ -18,7 +18,7 @@
       <%= current_user.email %> 
       <%= link_to "ログアウト", destroy_user_session_path, method: :delete %> <!-- ログアウトをする -->
       <%= link_to("作成","/questions/new", class: 'btn btn-primary') %>
-      
+      <%= link_to("マイページ","/my_questions", class: 'btn btn-primary') %>
       <% @questions.each do |question| %>
         <div>
           <p><%= question.question %></p>
@@ -28,7 +28,7 @@
             <% question.options.each do |option| %>
                 <% chart_array << [option.option, UserOption.where(option_id: option.id).count] %>
             <% end %>
-            <%= column_chart chart_array, width: '300px', height: '200px' %>
+            <%= pie_chart chart_array, width: '300px', height: '200px',colors: ['#b00', '#0b0', '#00b']%>
           <% else %>
             <% question.options.each do |option| %>
               <%= link_to question_user_options_path(question.id, { option_id:  option.id }), method: :post do %>
